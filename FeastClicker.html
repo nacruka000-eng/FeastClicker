@@ -499,7 +499,7 @@
 <body>
     <div class="game-container">
         <div class="login-screen" id="loginScreen">
-            <h1>💰 MrFeast Clicker 💰</h1>
+            <h1>💰 MrBeast Clicker 💰</h1>
             <input type="text" id="username" placeholder="Никнейм" maxlength="20">
             <input type="password" id="password" placeholder="Пароль" maxlength="20">
             <button onclick="startGame()">Войти</button>
@@ -791,6 +791,26 @@
     </div>
 
     <script>
+        // ==========================================
+        // TELEGRAM INTEGRATION (НОВЫЙ БЛОК)
+        // ==========================================
+        let tg = window.Telegram?.WebApp;
+        let userId = 'local';
+        let userFirstName = 'Игрок';
+        
+        // Если открыто в Telegram
+        if (tg) {
+            tg.expand(); // Разворачиваем на весь экран
+            tg.enableClosingConfirmation(); // Спрашиваем при закрытии
+            
+            // Получаем данные пользователя
+            if (tg.initDataUnsafe?.user) {
+                userId = tg.initDataUnsafe.user.id;
+                userFirstName = tg.initDataUnsafe.user.first_name || 'Игрок';
+                console.log('Telegram User:', userId, userFirstName);
+            }
+        }
+
         // Переменные
         let currentPlayer = '';
         let currentPassword = '';
@@ -1407,7 +1427,7 @@
                 restartCasino();
                 updateDisplay();
                 saveGame();
-                showNotif('🎰 MrFeast Casino куплен!');
+                showNotif('🎰 MrFeast Casino куплен! +15 000/мин');
             }
         }
 
@@ -1459,8 +1479,10 @@
             setTimeout(() => n.remove(), 1500);
         }
 
+        // ==========================================
+        // ИЗМЕНЕННЫЕ ФУНКЦИИ СОХРАНЕНИЯ (с Telegram ID)
+        // ==========================================
         function saveGame() {
-            if (!currentPlayer) return;
             const data = {
                 coins, clickCount, coinsPerClick, upgradeLevel, upgradeCost,
                 hasAutoClicker, hasAutoSpeedV1, hasAutoSpeedV2, hasAutoSpeedV3,
@@ -1468,11 +1490,29 @@
                 hasCasino, // Сохраняем Casino
                 rebirthLevel, rebirthBonus, luckyLevel
             };
-            localStorage.setItem('game_' + currentPlayer + '_' + currentPassword, JSON.stringify(data));
+            
+            try {
+                // Сохраняем с привязкой к Telegram ID
+                localStorage.setItem('game_' + userId, JSON.stringify(data));
+                
+                // Если есть ник и пароль (для локального режима) - сохраняем и туда
+                if (currentPlayer && currentPassword) {
+                    localStorage.setItem('game_' + currentPlayer + '_' + currentPassword, JSON.stringify(data));
+                }
+            } catch(e) {}
         }
 
         function loadGame() {
-            const saved = localStorage.getItem('game_' + currentPlayer + '_' + currentPassword);
+            let saved = null;
+            
+            // Сначала пробуем загрузить по Telegram ID
+            saved = localStorage.getItem('game_' + userId);
+            
+            // Если нет, пробуем по нику/паролю (старый способ)
+            if (!saved && currentPlayer && currentPassword) {
+                saved = localStorage.getItem('game_' + currentPlayer + '_' + currentPassword);
+            }
+            
             if (saved) {
                 const d = JSON.parse(saved);
                 coins = d.coins;
@@ -1494,20 +1534,42 @@
                 rebirthBonus = d.rebirthBonus || 0;
                 luckyLevel = d.luckyLevel || 0;
                 
-                restartAuto();
-                restartBrowser();
-                restartCasino(); // Запускаем Casino
+                showNotif('✅ Загружено');
+            } else {
+                // Новый игрок
+                coins = 5000;
+                showNotif('🆕 Новый игрок');
             }
+            
+            restartAuto();
+            restartBrowser();
+            restartCasino(); // Запускаем Casino
             updateDisplay();
         }
 
+        // ==========================================
+        // ИЗМЕНЕННАЯ ФУНКЦИЯ СТАРТА
+        // ==========================================
         function startGame() {
             const name = usernameInput.value.trim();
             const pass = passwordInput.value.trim();
+            
+            // Если есть Telegram ID, используем его
+            if (userId !== 'local') {
+                currentPlayer = userFirstName;
+                playerNameDisplay.textContent = userFirstName;
+                loginScreen.style.display = 'none';
+                gameScreen.style.display = 'flex';
+                loadGame();
+                return;
+            }
+            
+            // Старый способ для локального режима
             if (!name || !pass) {
                 showNotif('Введите ник и пароль');
                 return;
             }
+            
             currentPlayer = name;
             currentPassword = pass;
             playerNameDisplay.textContent = name;
@@ -1531,4 +1593,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
