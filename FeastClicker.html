@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MrFeast Clicker - CASINO</title>
+    <title>MrFeast Clicker - AWARDS</title>
     <style>
         * {
             margin: 0;
@@ -126,29 +126,50 @@
             z-index: 10;
         }
 
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-shrink: 0;
+         .tabs {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 15px;
+                flex-shrink: 0;
+                position: relative;
+                overflow-x: auto;        /* ← Добавить горизонтальную прокрутку */
+                white-space: nowrap;     /* ← Запретить перенос */
+               -webkit-overflow-scrolling: touch; /* ← Плавная прокрутка на iPhone */
+                scrollbar-width: thin;   /* ← Тонкий скроллбар */
+                padding-bottom: 5px;     /* ← Место для скроллбара */
         }
 
         .tab {
-            flex: 1;
-            padding: 12px;
-            background: #1a1a2a;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 10px;
-            color: #888;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
-        }
+              flex: 0 0 auto;          /* ← Кнопки не сжимаются */
+              padding: 12px;
+              background: #1a1a2a;
+              border: 1px solid rgba(255, 215, 0, 0.2);
+              border-radius: 10px;
+              color: #888;
+              font-weight: bold;
+              cursor: pointer;
+              text-align: center;
+              transition: 0.2s;
+              position: relative;
+              min-width: 80px;         /* ← Минимальная ширина кнопки */
+         }
 
         .tab.active {
             background: rgba(255, 215, 0, 0.15);
             color: #ffd700;
             border-color: #ffd700;
+        }
+
+        .tab-award-dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4caf50;
+            box-shadow: 0 0 10px #4caf50;
+            display: none;
         }
 
         .tab-content {
@@ -262,7 +283,7 @@
             height: 100%;
             background: linear-gradient(90deg, #ffd700, #ff8c00);
             width: 0%;
-            transition: width 0.1s;
+            transition: width 0.2s;
         }
 
         .shop-content {
@@ -456,6 +477,104 @@
             100% { opacity: 1; }
         }
 
+        /* СТИЛИ ДЛЯ AWARDS */
+        .awards-content {
+            padding: 10px 0 30px 0;
+        }
+
+        .award-item {
+            background: #1a1a2a;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: 0.2s;
+        }
+
+        .award-item.available {
+            border-color: #4caf50;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .award-item.completed {
+            border-color: #ffd700;
+            opacity: 0.8;
+        }
+
+        .award-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .award-icon {
+            font-size: 30px;
+        }
+
+        .award-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .award-desc {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .award-reward {
+            font-size: 14px;
+            color: #4caf50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .award-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .award-requirement {
+            font-size: 12px;
+            color: #ff6b6b;
+            background: rgba(255, 100, 100, 0.1);
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+
+        .award-btn {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .award-btn:active {
+            opacity: 0.8;
+        }
+
+        .award-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .completed-badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
         .coin-animation {
             position: fixed;
             pointer-events: none;
@@ -517,6 +636,10 @@
                 <div class="tab active" onclick="switchTab('clicker')">👆 Clicker</div>
                 <div class="tab" onclick="switchTab('shop')">🛒 Shop</div>
                 <div class="tab" onclick="switchTab('rebirth')">🔄 Rebirth</div>
+                <div class="tab" onclick="switchTab('awards')" id="awardsTabBtn">
+                    🎗 Awards
+                    <span class="tab-award-dot" id="awardDot"></span>
+                </div>
             </div>
 
             <div class="tab-content active" id="clickerTab">
@@ -735,7 +858,7 @@
                         </div>
                     </div>
 
-                    <!-- 14. НОВЫЙ: MrFeast Casino -->
+                    <!-- 14. MrFeast Casino -->
                     <div class="shop-item">
                         <div class="shop-item-header">
                             <span class="shop-item-icon">🎰</span>
@@ -782,28 +905,129 @@
                 </button>
             </div>
 
+            <!-- НОВАЯ ВКЛАДКА AWARDS (ИСПРАВЛЕНО) -->
+            <div class="tab-content" id="awardsTab">
+                <div class="awards-content">
+                    <!-- Начинающий -->
+                    <div class="award-item" id="award1">
+                        <div class="award-header">
+                            <span class="award-icon">♥️</span>
+                            <span class="award-title">Начинающий</span>
+                        </div>
+                        <div class="award-desc">Первое перерождение</div>
+                        <div class="award-reward">Награда: 10 000 монет</div>
+                        <div class="award-footer">
+                            <div class="award-requirement">Требуется: 1 Rebirth</div>
+                            <div id="award1Btn"></div>
+                        </div>
+                    </div>
+
+                    <!-- Опытный -->
+                    <div class="award-item" id="award2">
+                        <div class="award-header">
+                            <span class="award-icon">⭐️</span>
+                            <span class="award-title">Опытный</span>
+                        </div>
+                        <div class="award-desc">Второе перерождение</div>
+                        <div class="award-reward">Награда: +15 за клик</div>
+                        <div class="award-footer">
+                            <div class="award-requirement">Требуется: 2 Rebirth</div>
+                            <div id="award2Btn"></div>
+                        </div>
+                    </div>
+
+                    <!-- Профи -->
+                    <div class="award-item" id="award3">
+                        <div class="award-header">
+                            <span class="award-icon">🎮</span>
+                            <span class="award-title">Профи</span>
+                        </div>
+                        <div class="award-desc">Третье перерождение</div>
+                        <div class="award-reward">Награда: +30 за клик</div>
+                        <div class="award-footer">
+                            <div class="award-requirement">Требуется: 3 Rebirth</div>
+                            <div id="award3Btn"></div>
+                        </div>
+                    </div>
+
+                    <!-- Киберспортсмен -->
+                    <div class="award-item" id="award4">
+                        <div class="award-header">
+                            <span class="award-icon">🥉</span>
+                            <span class="award-title">Киберспортсмен</span>
+                        </div>
+                        <div class="award-desc">Четвертое перерождение</div>
+                        <div class="award-reward">Награда: 55 000 монет</div>
+                        <div class="award-footer">
+                            <div class="award-requirement">Требуется: 4 Rebirth</div>
+                            <div id="award4Btn"></div>
+                        </div>
+                    </div>
+
+                    <!-- Топер среди других -->
+                    <div class="award-item" id="award5">
+                        <div class="award-header">
+                            <span class="award-icon">🥈</span>
+                            <span class="award-title">Топер среди других</span>
+                        </div>
+                        <div class="award-desc">Пятое перерождение</div>
+                        <div class="award-reward">Награда: +35 за клик</div>
+                        <div class="award-footer">
+                            <div class="award-requirement">Требуется: 5 Rebirth</div>
+                            <div id="award5Btn"></div>
+                        </div>
+                    </div>
+
+                    <!-- Молнеиностный -->
+                    <div class="award-item" id="award6">
+                        <div class="award-header">
+                            <span class="award-icon">🥇</span>
+                            <span class="award-title">Молнеиностный</span>
+                        </div>
+                        <div class="award-desc">Миллионер</div>
+                        <div class="award-reward">Награда: +100 за клик</div>
+                        <div class="award-footer">
+                            <div class="award-requirement">Требуется: 1 000 000 монет</div>
+                            <div id="award6Btn"></div>
+                        </div>
+                    </div>
+
+                    <!-- Эксперт -->
+                    <div class="award-item" id="award7">
+                        <div class="award-header">
+                            <span class="award-icon">🏅</span>
+                            <span class="award-title">Эксперт</span>
+                        </div>
+                        <div class="award-desc">10 миллионов монет</div>
+                        <div class="award-reward">Награда: +5 000 за клик</div>
+                        <div class="award-footer">
+                            <div class="award-requirement">Требуется: 10 000 000 монет</div>
+                            <div id="award7Btn"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <button class="upgrade-btn" id="upgradeBtn" onclick="buyUpgrade()">
                 ⚡ Апгрейд
             </button>
 
-            <div class="version">Version:1.0.5</div>
+            <div class="version">Version:1.0.6</div>
         </div>
     </div>
 
     <script>
         // ==========================================
-        // TELEGRAM INTEGRATION (НОВЫЙ БЛОК)
+        // TELEGRAM INTEGRATION
         // ==========================================
         let tg = window.Telegram?.WebApp;
         let userId = 'local';
         let userFirstName = 'Игрок';
         
-        // Если открыто в Telegram
         if (tg) {
-            tg.expand(); // Разворачиваем на весь экран
-            tg.enableClosingConfirmation(); // Спрашиваем при закрытии
+            tg.expand();
+            tg.enableClosingConfirmation();
             
-            // Получаем данные пользователя
             if (tg.initDataUnsafe?.user) {
                 userId = tg.initDataUnsafe.user.id;
                 userFirstName = tg.initDataUnsafe.user.first_name || 'Игрок';
@@ -836,12 +1060,22 @@
         let hasBrowser = false;
         let hasLand = false;
         
-        // НОВАЯ переменная для Casino
         let hasCasino = false;
         let casinoInterval = null;
         
         // LUCKY переменные
         let luckyLevel = 0;
+        
+        // AWARDS переменные
+        let awards = {
+            award1: false, // Начинающий
+            award2: false, // Опытный
+            award3: false, // Профи
+            award4: false, // Киберспортсмен
+            award5: false, // Топер
+            award6: false, // Молнеиностный
+            award7: false  // Эксперт
+        };
         
         let browserInterval = null;
 
@@ -866,7 +1100,9 @@
         const rebirthRequirements = document.getElementById('rebirthRequirements');
         const rebirthNextDisplay = document.getElementById('rebirthNextDisplay');
         const lastRebirthMsg = document.getElementById('lastRebirthMsg');
+        const awardDot = document.getElementById('awardDot');
         
+        // Кнопки магазина
         const autoClickerShopBtn = document.getElementById('autoClickerShopBtn');
         const autoSpeedShopBtn = document.getElementById('autoSpeedShopBtn');
         const autoSpeedV2ShopBtn = document.getElementById('autoSpeedV2ShopBtn');
@@ -881,8 +1117,16 @@
         const lucky3ShopBtn = document.getElementById('lucky3ShopBtn');
         const lucky4ShopBtn = document.getElementById('lucky4ShopBtn');
         const lucky5ShopBtn = document.getElementById('lucky5ShopBtn');
-        // НОВАЯ кнопка Casino
         const casinoShopBtn = document.getElementById('casinoShopBtn');
+        
+        // Кнопки наград
+        const award1Btn = document.getElementById('award1Btn');
+        const award2Btn = document.getElementById('award2Btn');
+        const award3Btn = document.getElementById('award3Btn');
+        const award4Btn = document.getElementById('award4Btn');
+        const award5Btn = document.getElementById('award5Btn');
+        const award6Btn = document.getElementById('award6Btn');
+        const award7Btn = document.getElementById('award7Btn');
 
         function getAutoSpeed() {
             if (!hasAutoClicker) return null;
@@ -897,6 +1141,14 @@
             if (hasRing) total += 5;
             if (hasCrown) total += 150;
             if (hasLand) total += 1000;
+            
+            // Бонусы от наград
+            if (awards.award2) total += 15; // Опытный
+            if (awards.award3) total += 30; // Профи
+            if (awards.award5) total += 35; // Топер
+            if (awards.award6) total += 100; // Молнеиностный
+            if (awards.award7) total += 5000; // Эксперт
+            
             return total;
         }
 
@@ -978,6 +1230,157 @@
             }
         }
 
+        // ФУНКЦИЯ: Проверка доступных наград
+        function updateAwards() {
+            let availableCount = 0;
+            
+            // Award 1: Начинающий (1 Rebirth)
+            if (!awards.award1 && rebirthLevel >= 1) {
+                document.getElementById('award1').classList.add('available');
+                document.getElementById('award1').classList.remove('completed');
+                award1Btn.innerHTML = '<button class="award-btn" onclick="claimAward(1)">Получить</button>';
+                availableCount++;
+            } else if (awards.award1) {
+                document.getElementById('award1').classList.add('completed');
+                document.getElementById('award1').classList.remove('available');
+                award1Btn.innerHTML = '<span class="completed-badge">✅ Получено</span>';
+            } else {
+                document.getElementById('award1').classList.remove('available', 'completed');
+                award1Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
+            }
+            
+            // Award 2: Опытный (2 Rebirth)
+            if (!awards.award2 && rebirthLevel >= 2) {
+                document.getElementById('award2').classList.add('available');
+                document.getElementById('award2').classList.remove('completed');
+                award2Btn.innerHTML = '<button class="award-btn" onclick="claimAward(2)">Получить</button>';
+                availableCount++;
+            } else if (awards.award2) {
+                document.getElementById('award2').classList.add('completed');
+                document.getElementById('award2').classList.remove('available');
+                award2Btn.innerHTML = '<span class="completed-badge">✅ Получено</span>';
+            } else {
+                document.getElementById('award2').classList.remove('available', 'completed');
+                award2Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
+            }
+            
+            // Award 3: Профи (3 Rebirth)
+            if (!awards.award3 && rebirthLevel >= 3) {
+                document.getElementById('award3').classList.add('available');
+                document.getElementById('award3').classList.remove('completed');
+                award3Btn.innerHTML = '<button class="award-btn" onclick="claimAward(3)">Получить</button>';
+                availableCount++;
+            } else if (awards.award3) {
+                document.getElementById('award3').classList.add('completed');
+                document.getElementById('award3').classList.remove('available');
+                award3Btn.innerHTML = '<span class="completed-badge">✅ Получено</span>';
+            } else {
+                document.getElementById('award3').classList.remove('available', 'completed');
+                award3Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
+            }
+            
+            // Award 4: Киберспортсмен (4 Rebirth)
+            if (!awards.award4 && rebirthLevel >= 4) {
+                document.getElementById('award4').classList.add('available');
+                document.getElementById('award4').classList.remove('completed');
+                award4Btn.innerHTML = '<button class="award-btn" onclick="claimAward(4)">Получить</button>';
+                availableCount++;
+            } else if (awards.award4) {
+                document.getElementById('award4').classList.add('completed');
+                document.getElementById('award4').classList.remove('available');
+                award4Btn.innerHTML = '<span class="completed-badge">✅ Получено</span>';
+            } else {
+                document.getElementById('award4').classList.remove('available', 'completed');
+                award4Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
+            }
+            
+            // Award 5: Топер (5 Rebirth)
+            if (!awards.award5 && rebirthLevel >= 5) {
+                document.getElementById('award5').classList.add('available');
+                document.getElementById('award5').classList.remove('completed');
+                award5Btn.innerHTML = '<button class="award-btn" onclick="claimAward(5)">Получить</button>';
+                availableCount++;
+            } else if (awards.award5) {
+                document.getElementById('award5').classList.add('completed');
+                document.getElementById('award5').classList.remove('available');
+                award5Btn.innerHTML = '<span class="completed-badge">✅ Получено</span>';
+            } else {
+                document.getElementById('award5').classList.remove('available', 'completed');
+                award5Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
+            }
+            
+            // Award 6: Молнеиностный (1 млн монет)
+            if (!awards.award6 && coins >= 1000000) {
+                document.getElementById('award6').classList.add('available');
+                document.getElementById('award6').classList.remove('completed');
+                award6Btn.innerHTML = '<button class="award-btn" onclick="claimAward(6)">Получить</button>';
+                availableCount++;
+            } else if (awards.award6) {
+                document.getElementById('award6').classList.add('completed');
+                document.getElementById('award6').classList.remove('available');
+                award6Btn.innerHTML = '<span class="completed-badge">✅ Получено</span>';
+            } else {
+                document.getElementById('award6').classList.remove('available', 'completed');
+                award6Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
+            }
+            
+            // Award 7: Эксперт (10 млн монет)
+            if (!awards.award7 && coins >= 10000000) {
+                document.getElementById('award7').classList.add('available');
+                document.getElementById('award7').classList.remove('completed');
+                award7Btn.innerHTML = '<button class="award-btn" onclick="claimAward(7)">Получить</button>';
+                availableCount++;
+            } else if (awards.award7) {
+                document.getElementById('award7').classList.add('completed');
+                document.getElementById('award7').classList.remove('available');
+                award7Btn.innerHTML = '<span class="completed-badge">✅ Получено</span>';
+            } else {
+                document.getElementById('award7').classList.remove('available', 'completed');
+                award7Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
+            }
+            
+            // Показываем точку на вкладке если есть доступные награды
+            if (availableCount > 0) {
+                awardDot.style.display = 'block';
+            } else {
+                awardDot.style.display = 'none';
+            }
+        }
+
+        // ФУНКЦИЯ: Получение награды
+        function claimAward(awardId) {
+            if (awardId === 1 && !awards.award1 && rebirthLevel >= 1) {
+                awards.award1 = true;
+                coins += 10000;
+                showNotif('♥️ Начинающий: +10 000 монет');
+            } else if (awardId === 2 && !awards.award2 && rebirthLevel >= 2) {
+                awards.award2 = true;
+                showNotif('⭐️ Опытный: +15 за клик');
+            } else if (awardId === 3 && !awards.award3 && rebirthLevel >= 3) {
+                awards.award3 = true;
+                showNotif('🎮 Профи: +30 за клик');
+            } else if (awardId === 4 && !awards.award4 && rebirthLevel >= 4) {
+                awards.award4 = true;
+                coins += 55000;
+                showNotif('🥉 Киберспортсмен: +55 000 монет');
+            } else if (awardId === 5 && !awards.award5 && rebirthLevel >= 5) {
+                awards.award5 = true;
+                showNotif('🥈 Топер: +35 за клик');
+            } else if (awardId === 6 && !awards.award6 && coins >= 1000000) {
+                awards.award6 = true;
+                showNotif('🥇 Молнеиностный: +100 за клик');
+            } else if (awardId === 7 && !awards.award7 && coins >= 10000000) {
+                awards.award7 = true;
+                showNotif('🏅 Эксперт: +5 000 за клик');
+            } else {
+                return;
+            }
+            
+            updateAwards();
+            updateDisplay();
+            saveGame();
+        }
+
         function updateDisplay() {
             const total = getTotalPerClick();
             const luckyChance = getLuckyChance();
@@ -990,6 +1393,7 @@
             rebirthLevelSpan.textContent = rebirthLevel;
             
             updateRebirthDisplay();
+            updateAwards(); // Обновляем награды
             
             let speedText = '-';
             if (hasAutoClicker) {
@@ -1114,7 +1518,7 @@
                 browserShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyBrowser()" ${coins < 275000 ? 'disabled' : ''}>Купить</button>`;
             }
             
-            // 14. Casino (НОВЫЙ)
+            // 14. Casino
             if (!hasPC) {
                 casinoShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             } else if (hasCasino) {
@@ -1188,7 +1592,7 @@
                 hasPC = false;
                 hasBrowser = false;
                 hasLand = false;
-                hasCasino = false; // Сбрасываем Casino
+                hasCasino = false;
                 luckyLevel = 0;
                 
                 if (autoClickerInterval) {
@@ -1252,7 +1656,6 @@
             }
         }
 
-        // НОВАЯ функция для Casino
         function restartCasino() {
             if (casinoInterval) clearInterval(casinoInterval);
             if (hasCasino) {
@@ -1261,7 +1664,7 @@
                     updateDisplay();
                     saveGame();
                     showNotif('🎰 Casino: +15 000 монет');
-                }, 60000); // 60 секунд = 60000 миллисекунд
+                }, 60000);
             }
         }
 
@@ -1419,7 +1822,6 @@
             }
         }
 
-        // НОВАЯ функция покупки Casino
         function buyCasino() {
             if (coins >= 1250000 && hasPC && !hasCasino) {
                 coins -= 1250000;
@@ -1468,6 +1870,10 @@
                 document.querySelectorAll('.tab')[2].classList.add('active');
                 document.getElementById('rebirthTab').classList.add('active');
                 updateRebirthDisplay();
+            } else if (tab === 'awards') {
+                document.querySelectorAll('.tab')[3].classList.add('active');
+                document.getElementById('awardsTab').classList.add('active');
+                updateAwards();
             }
         }
 
@@ -1479,23 +1885,18 @@
             setTimeout(() => n.remove(), 1500);
         }
 
-        // ==========================================
-        // ИЗМЕНЕННЫЕ ФУНКЦИИ СОХРАНЕНИЯ (с Telegram ID)
-        // ==========================================
         function saveGame() {
             const data = {
                 coins, clickCount, coinsPerClick, upgradeLevel, upgradeCost,
                 hasAutoClicker, hasAutoSpeedV1, hasAutoSpeedV2, hasAutoSpeedV3,
                 hasRing, hasCrown, hasPC, hasBrowser, hasLand,
-                hasCasino, // Сохраняем Casino
-                rebirthLevel, rebirthBonus, luckyLevel
+                hasCasino, rebirthLevel, rebirthBonus, luckyLevel,
+                awards // Сохраняем награды
             };
             
             try {
-                // Сохраняем с привязкой к Telegram ID
                 localStorage.setItem('game_' + userId, JSON.stringify(data));
                 
-                // Если есть ник и пароль (для локального режима) - сохраняем и туда
                 if (currentPlayer && currentPassword) {
                     localStorage.setItem('game_' + currentPlayer + '_' + currentPassword, JSON.stringify(data));
                 }
@@ -1505,10 +1906,8 @@
         function loadGame() {
             let saved = null;
             
-            // Сначала пробуем загрузить по Telegram ID
             saved = localStorage.getItem('game_' + userId);
             
-            // Если нет, пробуем по нику/паролю (старый способ)
             if (!saved && currentPlayer && currentPassword) {
                 saved = localStorage.getItem('game_' + currentPlayer + '_' + currentPassword);
             }
@@ -1529,32 +1928,36 @@
                 hasPC = d.hasPC || false;
                 hasBrowser = d.hasBrowser || false;
                 hasLand = d.hasLand || false;
-                hasCasino = d.hasCasino || false; // Загружаем Casino
+                hasCasino = d.hasCasino || false;
                 rebirthLevel = d.rebirthLevel || 0;
                 rebirthBonus = d.rebirthBonus || 0;
                 luckyLevel = d.luckyLevel || 0;
+                awards = d.awards || { // Загружаем награды
+                    award1: false,
+                    award2: false,
+                    award3: false,
+                    award4: false,
+                    award5: false,
+                    award6: false,
+                    award7: false
+                };
                 
                 showNotif('✅ Загружено');
             } else {
-                // Новый игрок
                 coins = 0;
                 showNotif('🆕 Новый игрок');
             }
             
             restartAuto();
             restartBrowser();
-            restartCasino(); // Запускаем Casino
+            restartCasino();
             updateDisplay();
         }
 
-        // ==========================================
-        // ИЗМЕНЕННАЯ ФУНКЦИЯ СТАРТА
-        // ==========================================
         function startGame() {
             const name = usernameInput.value.trim();
             const pass = passwordInput.value.trim();
             
-            // Если есть Telegram ID, используем его
             if (userId !== 'local') {
                 currentPlayer = userFirstName;
                 playerNameDisplay.textContent = userFirstName;
@@ -1564,7 +1967,6 @@
                 return;
             }
             
-            // Старый способ для локального режима
             if (!name || !pass) {
                 showNotif('Введите ник и пароль');
                 return;
@@ -1593,4 +1995,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
