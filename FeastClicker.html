@@ -126,33 +126,33 @@
             z-index: 10;
         }
 
-         .tabs {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 15px;
-                flex-shrink: 0;
-                position: relative;
-                overflow-x: auto;        /* ← Добавить горизонтальную прокрутку */
-                white-space: nowrap;     /* ← Запретить перенос */
-               -webkit-overflow-scrolling: touch; /* ← Плавная прокрутка на iPhone */
-                scrollbar-width: thin;   /* ← Тонкий скроллбар */
-                padding-bottom: 5px;     /* ← Место для скроллбара */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+            position: relative;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            padding-bottom: 5px;
         }
 
         .tab {
-              flex: 0 0 auto;          /* ← Кнопки не сжимаются */
-              padding: 12px;
-              background: #1a1a2a;
-              border: 1px solid rgba(255, 215, 0, 0.2);
-              border-radius: 10px;
-              color: #888;
-              font-weight: bold;
-              cursor: pointer;
-              text-align: center;
-              transition: 0.2s;
-              position: relative;
-              min-width: 80px;         /* ← Минимальная ширина кнопки */
-         }
+            flex: 0 0 auto;
+            min-width: 80px;
+            padding: 12px;
+            background: #1a1a2a;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            color: #888;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+            position: relative;
+        }
 
         .tab.active {
             background: rgba(255, 215, 0, 0.15);
@@ -884,6 +884,46 @@
                             <div id="landShopBtn"></div>
                         </div>
                     </div>
+
+                    <!-- НОВЫЙ 16. MrFeast Magick Ball -->
+                    <div class="shop-item">
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🔮</span>
+                            <span class="shop-item-title">MrFeast Magick Ball</span>
+                        </div>
+                        <div class="shop-item-desc">Повышает доход за нажатие на 250!</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">1 570 000</div>
+                            <div id="magicBallShopBtn"></div>
+                        </div>
+                    </div>
+
+                    <!-- НОВЫЙ 17. MrFeast Big Home -->
+                    <div class="shop-item">
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🏡</span>
+                            <span class="shop-item-title">MrFeast Big Home</span>
+                        </div>
+                        <div class="shop-item-desc">Дает завести девушку и бонус за клик: +570</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">9 777 000</div>
+                            <div id="bigHomeShopBtn"></div>
+                        </div>
+                    </div>
+
+                    <!-- НОВЫЙ 18. MrFeast's GirlFriend Vika -->
+                    <div class="shop-item">
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">💚</span>
+                            <span class="shop-item-title">MrFeast's GirlFriend Vika</span>
+                        </div>
+                        <div class="shop-item-desc">Любимая девушка MrFeast. Вы счастливы и ваш доход увеличился на +1500</div>
+                        <div class="requirement-badge">Требуется: MrFeast Big Home</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">15 000 000</div>
+                            <div id="girlfriendShopBtn"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -905,7 +945,7 @@
                 </button>
             </div>
 
-            <!-- НОВАЯ ВКЛАДКА AWARDS (ИСПРАВЛЕНО) -->
+            <!-- ВКЛАДКА AWARDS -->
             <div class="tab-content" id="awardsTab">
                 <div class="awards-content">
                     <!-- Начинающий -->
@@ -1005,6 +1045,20 @@
                             <div id="award7Btn"></div>
                         </div>
                     </div>
+
+                    <!-- НОВАЯ НАГРАДА: Любовник -->
+                    <div class="award-item" id="award8">
+                        <div class="award-header">
+                            <span class="award-icon">💚</span>
+                            <span class="award-title">Любовник</span>
+                        </div>
+                        <div class="award-desc">Нашел свою любовь</div>
+                        <div class="award-reward">Награда: +350 за клик</div>
+                        <div class="award-footer">
+                            <div class="award-requirement">Требуется: MrFeast's GirlFriend Vika</div>
+                            <div id="award8Btn"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1012,7 +1066,7 @@
                 ⚡ Апгрейд
             </button>
 
-            <div class="version">Version:1.0.6</div>
+            <div class="version">Version:1.0.7</div>
         </div>
     </div>
 
@@ -1063,10 +1117,15 @@
         let hasCasino = false;
         let casinoInterval = null;
         
+        // НОВЫЕ предметы
+        let hasMagicBall = false;
+        let hasBigHome = false;
+        let hasGirlfriend = false;
+        
         // LUCKY переменные
         let luckyLevel = 0;
         
-        // AWARDS переменные
+        // AWARDS переменные (8 наград)
         let awards = {
             award1: false, // Начинающий
             award2: false, // Опытный
@@ -1074,7 +1133,8 @@
             award4: false, // Киберспортсмен
             award5: false, // Топер
             award6: false, // Молнеиностный
-            award7: false  // Эксперт
+            award7: false, // Эксперт
+            award8: false  // Любовник (НОВЫЙ)
         };
         
         let browserInterval = null;
@@ -1119,7 +1179,12 @@
         const lucky5ShopBtn = document.getElementById('lucky5ShopBtn');
         const casinoShopBtn = document.getElementById('casinoShopBtn');
         
-        // Кнопки наград
+        // НОВЫЕ кнопки магазина
+        const magicBallShopBtn = document.getElementById('magicBallShopBtn');
+        const bigHomeShopBtn = document.getElementById('bigHomeShopBtn');
+        const girlfriendShopBtn = document.getElementById('girlfriendShopBtn');
+        
+        // Кнопки наград (8 штук)
         const award1Btn = document.getElementById('award1Btn');
         const award2Btn = document.getElementById('award2Btn');
         const award3Btn = document.getElementById('award3Btn');
@@ -1127,6 +1192,7 @@
         const award5Btn = document.getElementById('award5Btn');
         const award6Btn = document.getElementById('award6Btn');
         const award7Btn = document.getElementById('award7Btn');
+        const award8Btn = document.getElementById('award8Btn');
 
         function getAutoSpeed() {
             if (!hasAutoClicker) return null;
@@ -1141,6 +1207,9 @@
             if (hasRing) total += 5;
             if (hasCrown) total += 150;
             if (hasLand) total += 1000;
+            if (hasMagicBall) total += 250;      // НОВОЕ
+            if (hasBigHome) total += 570;         // НОВОЕ
+            if (hasGirlfriend) total += 1500;      // НОВОЕ
             
             // Бонусы от наград
             if (awards.award2) total += 15; // Опытный
@@ -1148,6 +1217,7 @@
             if (awards.award5) total += 35; // Топер
             if (awards.award6) total += 100; // Молнеиностный
             if (awards.award7) total += 5000; // Эксперт
+            if (awards.award8) total += 350; // Любовник (НОВЫЙ)
             
             return total;
         }
@@ -1168,11 +1238,11 @@
             
             lastRebirthMsg.style.display = 'none';
             
-            if (rebirthLevel >= 5) {
+            if (rebirthLevel >= 8) { // Теперь до 8 Rebirth
                 rebirthRequirements.innerHTML = `
                     <div class="rebirth-requirements">
                         <strong>✅ Все перерождения завершены!</strong><br>
-                        Максимальный бонус: +25 за клик
+                        Максимальный бонус: +55 за клик (5+5+5+5+5+5+5+5+5+...)
                     </div>
                 `;
                 rebirthNextDisplay.innerHTML = '';
@@ -1218,8 +1288,32 @@
                 } else if (nextLevel === 5) {
                     requirements = `
                         <div class="rebirth-requirements">
-                            <strong>5 Rebirth (ПОСЛЕДНИЙ):</strong><br>
+                            <strong>5 Rebirth (следующий):</strong><br>
                             Требуется: 575000 монет, MrFeast Crown, MrFeast PC V1, MrFeast Browser<br>
+                            Бонус после rebirth: +${nextBonus} за клик
+                        </div>
+                    `;
+                } else if (nextLevel === 6) {
+                    requirements = `
+                        <div class="rebirth-requirements">
+                            <strong>6 Rebirth (НОВЫЙ):</strong><br>
+                            Требуется: 1 250 000 монет, MrFeastLand<br>
+                            Бонус после rebirth: +${nextBonus} за клик
+                        </div>
+                    `;
+                } else if (nextLevel === 7) {
+                    requirements = `
+                        <div class="rebirth-requirements">
+                            <strong>7 Rebirth (НОВЫЙ):</strong><br>
+                            Требуется: 1 750 000 монет, MrFeastCasino<br>
+                            Бонус после rebirth: +${nextBonus} за клик
+                        </div>
+                    `;
+                } else if (nextLevel === 8) {
+                    requirements = `
+                        <div class="rebirth-requirements">
+                            <strong>8 Rebirth (ПОСЛЕДНИЙ):</strong><br>
+                            Требуется: 2 570 000 монет, MrFeastLand, MrFeastCasino<br>
                             Бонус после rebirth: +${nextBonus} за клик
                         </div>
                     `;
@@ -1339,6 +1433,21 @@
                 award7Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
             }
             
+            // Award 8: Любовник (НОВЫЙ)
+            if (!awards.award8 && hasGirlfriend) {
+                document.getElementById('award8').classList.add('available');
+                document.getElementById('award8').classList.remove('completed');
+                award8Btn.innerHTML = '<button class="award-btn" onclick="claimAward(8)">Получить</button>';
+                availableCount++;
+            } else if (awards.award8) {
+                document.getElementById('award8').classList.add('completed');
+                document.getElementById('award8').classList.remove('available');
+                award8Btn.innerHTML = '<span class="completed-badge">✅ Получено</span>';
+            } else {
+                document.getElementById('award8').classList.remove('available', 'completed');
+                award8Btn.innerHTML = '<span class="completed-badge" style="opacity:0.3;">❌ Недоступно</span>';
+            }
+            
             // Показываем точку на вкладке если есть доступные награды
             if (availableCount > 0) {
                 awardDot.style.display = 'block';
@@ -1372,6 +1481,9 @@
             } else if (awardId === 7 && !awards.award7 && coins >= 10000000) {
                 awards.award7 = true;
                 showNotif('🏅 Эксперт: +5 000 за клик');
+            } else if (awardId === 8 && !awards.award8 && hasGirlfriend) {
+                awards.award8 = true;
+                showNotif('💚 Любовник: +350 за клик');
             } else {
                 return;
             }
@@ -1534,13 +1646,36 @@
                 landShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyLand()" ${coins < 760000 ? 'disabled' : ''}>Купить</button>`;
             }
             
+            // 16. Magic Ball (НОВЫЙ)
+            if (hasMagicBall) {
+                magicBallShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
+            } else {
+                magicBallShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyMagicBall()" ${coins < 1570000 ? 'disabled' : ''}>Купить</button>`;
+            }
+            
+            // 17. Big Home (НОВЫЙ)
+            if (hasBigHome) {
+                bigHomeShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
+            } else {
+                bigHomeShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyBigHome()" ${coins < 9777000 ? 'disabled' : ''}>Купить</button>`;
+            }
+            
+            // 18. Girlfriend (НОВЫЙ)
+            if (!hasBigHome) {
+                girlfriendShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
+            } else if (hasGirlfriend) {
+                girlfriendShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
+            } else {
+                girlfriendShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyGirlfriend()" ${coins < 15000000 ? 'disabled' : ''}>Купить</button>`;
+            }
+            
             upgradeBtn.disabled = coins < upgradeCost;
             
             updateRebirthButton();
         }
 
         function updateRebirthButton() {
-            if (rebirthLevel >= 5) {
+            if (rebirthLevel >= 8) {
                 rebirthBtn.disabled = true;
                 return;
             }
@@ -1555,11 +1690,17 @@
                 rebirthBtn.disabled = !(coins >= 125000 && hasRing && hasCrown && hasPC);
             } else if (rebirthLevel === 4) {
                 rebirthBtn.disabled = !(coins >= 575000 && hasCrown && hasPC && hasBrowser);
+            } else if (rebirthLevel === 5) {
+                rebirthBtn.disabled = !(coins >= 1250000 && hasLand);
+            } else if (rebirthLevel === 6) {
+                rebirthBtn.disabled = !(coins >= 1750000 && hasCasino);
+            } else if (rebirthLevel === 7) {
+                rebirthBtn.disabled = !(coins >= 2570000 && hasLand && hasCasino);
             }
         }
 
         function doRebirth() {
-            if (rebirthLevel >= 5) {
+            if (rebirthLevel >= 8) {
                 showNotif('❌ Это последнее перерождение!');
                 return;
             }
@@ -1575,6 +1716,12 @@
             } else if (rebirthLevel === 3 && coins >= 125000 && hasRing && hasCrown && hasPC) {
                 canRebirth = true;
             } else if (rebirthLevel === 4 && coins >= 575000 && hasCrown && hasPC && hasBrowser) {
+                canRebirth = true;
+            } else if (rebirthLevel === 5 && coins >= 1250000 && hasLand) {
+                canRebirth = true;
+            } else if (rebirthLevel === 6 && coins >= 1750000 && hasCasino) {
+                canRebirth = true;
+            } else if (rebirthLevel === 7 && coins >= 2570000 && hasLand && hasCasino) {
                 canRebirth = true;
             }
             
@@ -1593,6 +1740,9 @@
                 hasBrowser = false;
                 hasLand = false;
                 hasCasino = false;
+                hasMagicBall = false;
+                hasBigHome = false;
+                hasGirlfriend = false;
                 luckyLevel = 0;
                 
                 if (autoClickerInterval) {
@@ -1611,11 +1761,7 @@
                 updateDisplay();
                 saveGame();
                 
-                if (rebirthLevel === 5) {
-                    showNotif('🎉 ПОСЛЕДНЕЕ ПЕРЕРОЖДЕНИЕ! +5 за клик');
-                } else {
-                    showNotif(`🎉 Rebirth ${rebirthLevel}! +5 за клик`);
-                }
+                showNotif(`🎉 Rebirth ${rebirthLevel}! +5 за клик`);
             }
         }
 
@@ -1843,6 +1989,37 @@
             }
         }
 
+        // НОВЫЕ функции покупки
+        function buyMagicBall() {
+            if (coins >= 1570000 && !hasMagicBall) {
+                coins -= 1570000;
+                hasMagicBall = true;
+                updateDisplay();
+                saveGame();
+                showNotif('🔮 MrFeast Magick Ball куплен! +250 за клик');
+            }
+        }
+
+        function buyBigHome() {
+            if (coins >= 9777000 && !hasBigHome) {
+                coins -= 9777000;
+                hasBigHome = true;
+                updateDisplay();
+                saveGame();
+                showNotif('🏡 MrFeast Big Home куплен! +570 за клик');
+            }
+        }
+
+        function buyGirlfriend() {
+            if (coins >= 15000000 && hasBigHome && !hasGirlfriend) {
+                coins -= 15000000;
+                hasGirlfriend = true;
+                updateDisplay();
+                saveGame();
+                showNotif('💚 MrFeast\'s GirlFriend Vika куплена! +1500 за клик');
+            }
+        }
+
         function buyUpgrade() {
             if (coins >= upgradeCost) {
                 coins -= upgradeCost;
@@ -1890,8 +2067,9 @@
                 coins, clickCount, coinsPerClick, upgradeLevel, upgradeCost,
                 hasAutoClicker, hasAutoSpeedV1, hasAutoSpeedV2, hasAutoSpeedV3,
                 hasRing, hasCrown, hasPC, hasBrowser, hasLand,
-                hasCasino, rebirthLevel, rebirthBonus, luckyLevel,
-                awards // Сохраняем награды
+                hasCasino, hasMagicBall, hasBigHome, hasGirlfriend,
+                rebirthLevel, rebirthBonus, luckyLevel,
+                awards
             };
             
             try {
@@ -1929,17 +2107,21 @@
                 hasBrowser = d.hasBrowser || false;
                 hasLand = d.hasLand || false;
                 hasCasino = d.hasCasino || false;
+                hasMagicBall = d.hasMagicBall || false;
+                hasBigHome = d.hasBigHome || false;
+                hasGirlfriend = d.hasGirlfriend || false;
                 rebirthLevel = d.rebirthLevel || 0;
                 rebirthBonus = d.rebirthBonus || 0;
                 luckyLevel = d.luckyLevel || 0;
-                awards = d.awards || { // Загружаем награды
+                awards = d.awards || {
                     award1: false,
                     award2: false,
                     award3: false,
                     award4: false,
                     award5: false,
                     award6: false,
-                    award7: false
+                    award7: false,
+                    award8: false
                 };
                 
                 showNotif('✅ Загружено');
@@ -1995,4 +2177,4 @@
         });
     </script>
 </body>
-    </html>
+</html>
