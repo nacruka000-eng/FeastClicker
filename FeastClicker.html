@@ -966,7 +966,7 @@
                     <div class="shop-item">
                         <div class="shop-item-header">
                             <span class="shop-item-icon">🏭</span>
-                            <span class="shop-item-title">MrFeast Factory</span>
+                            <span class="shop-item-title">MrFeast Plant</span>
                         </div>
                         <div class="shop-item-desc">Дает возможность создавать телефоны. Увеличивает доход за клик на 1250</div>
                         <div class="requirement-badge">Требуется: MrFeast PC V1, MrFeastLand</div>
@@ -980,7 +980,7 @@
                     <div class="shop-item">
                         <div class="shop-item-header">
                             <span class="shop-item-icon">🔮</span>
-                            <span class="shop-item-title">MrFeast Magic Ball</span>
+                            <span class="shop-item-title">MrFeast Magick Ball</span>
                         </div>
                         <div class="shop-item-desc">Повышает доход за нажатие на 250!</div>
                         <div class="shop-item-footer">
@@ -1594,14 +1594,14 @@
         function activatePromo() {
             const code = promoInput.value.trim();
             
-            if (code === 'MrFeastFixUPD' && !promoUsed) {
+            if (code === 'MrFeastUPD108' && !promoUsed) {
                 promoUsed = true;
-                coinsPerClick += 520;
-                promoMessage.textContent = 'Промокод активирован: +520 за клик';
+                coinsPerClick += 250;
+                promoMessage.textContent = 'Промокод активирован: +250 за клик';
                 promoMessage.className = 'promo-message success';
                 updateDisplay();
                 saveGame();
-                showNotif('🎁 Промокод активирован! +100 за клик');
+                showNotif('🎁 Промокод активирован! +250 за клик');
             } else if (promoUsed) {
                 promoMessage.textContent = 'Неверный промокод или активирован';
                 promoMessage.className = 'promo-message error';
