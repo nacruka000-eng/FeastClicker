@@ -1658,10 +1658,10 @@
                 saveGame();
                 showNotif('🎁 Промокод активирован! +570 за клик');
             } else if (promoUsed) {
-                promoMessage.textContent = 'Неверный промокод или активирован';
+                promoMessage.textContent = 'Промокод уже был активирован!';
                 promoMessage.className = 'promo-message error';
             } else {
-                promoMessage.textContent = 'Неверный промокод или активирован';
+                promoMessage.textContent = 'Неверный промокод';
                 promoMessage.className = 'promo-message error';
             }
         }
