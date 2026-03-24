@@ -58,7 +58,7 @@
         .circle {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0));
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.35), rgba(255, 215, 0, 0));
             animation: floatCircle 22s linear infinite;
             pointer-events: none;
             will-change: transform;
@@ -71,10 +71,10 @@
                 opacity: 0;
             }
             8% {
-                opacity: 0.5;
+                opacity: 0.6;
             }
             92% {
-                opacity: 0.5;
+                opacity: 0.6;
             }
             100% {
                 transform: translateY(-20%) translateX(45px) rotate(360deg);
@@ -902,8 +902,8 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: #0a0a0f;
+            background: #0a0a0a;
+            color: #ffd700;
             padding: 12px 25px;
             border-radius: 50px;
             font-weight: bold;
@@ -912,6 +912,8 @@
             white-space: nowrap;
             max-width: 90%;
             text-align: center;
+            border: 1px solid #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
         }
 
         @keyframes notification {
