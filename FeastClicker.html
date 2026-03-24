@@ -29,11 +29,12 @@
             background: #0f0f19;
             border: 2px solid rgba(255, 215, 0, 0.2);
             border-radius: 30px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
             width: 100%;
-            max-width: 500px;
-            max-height: 95vh;
+            max-width: 550px;
+            min-width: 320px;
+            max-height: 98vh;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -42,7 +43,7 @@
             overflow: hidden;
         }
 
-        /* Плавающие круги внутри контейнера */
+        /* Плавающие круги - ПО ВСЕМУ ФОНУ */
         .floating-circles {
             position: absolute;
             top: 0;
@@ -58,45 +59,46 @@
         .circle {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.4), rgba(255, 215, 0, 0));
-            animation: floatCircle linear infinite;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0));
+            animation: floatCircle 20s linear infinite;
             pointer-events: none;
+            will-change: transform;
         }
 
         @keyframes floatCircle {
             0% {
-                transform: translateY(100%) translateX(-10vw) rotate(0deg);
+                transform: translateY(100%) translateX(0) rotate(0deg);
                 opacity: 0;
             }
             10% {
-                opacity: 0.6;
+                opacity: 0.5;
             }
             90% {
-                opacity: 0.6;
+                opacity: 0.5;
             }
             100% {
-                transform: translateY(-20%) translateX(20vw) rotate(360deg);
+                transform: translateY(-20%) translateX(30px) rotate(360deg);
                 opacity: 0;
             }
         }
 
-        /* Волны при нажатии */
         .ripple {
             position: fixed;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.8), rgba(255, 215, 0, 0));
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.6), rgba(255, 215, 0, 0));
             pointer-events: none;
-            animation: rippleAnimation 0.6s ease-out forwards;
+            animation: rippleAnimation 0.45s ease-out forwards;
             z-index: 999;
+            will-change: transform, opacity;
         }
 
         @keyframes rippleAnimation {
             0% {
                 transform: scale(0);
-                opacity: 0.8;
+                opacity: 0.6;
             }
             100% {
-                transform: scale(4);
+                transform: scale(2.8);
                 opacity: 0;
             }
         }
@@ -345,7 +347,7 @@
             bottom: 10px;
             right: 20px;
             color: rgba(255, 215, 0, 0.3);
-            font-size: 11px;
+            font-size: 10px;
             z-index: 10;
         }
 
@@ -434,8 +436,8 @@
         }
 
         .click-btn {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
             margin: 10px auto;
             background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
@@ -460,12 +462,12 @@
         }
 
         .click-btn span:first-child {
-            font-size: 50px;
+            font-size: 55px;
             margin-bottom: 5px;
         }
 
         .click-btn span:nth-child(2) {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
         }
 
@@ -619,7 +621,7 @@
             border-radius: 15px;
             cursor: pointer;
             width: 100%;
-            margin: 15px 0;
+            margin: 25px 0;
             flex-shrink: 0;
             position: relative;
             z-index: 2;
@@ -909,7 +911,6 @@
 </head>
 <body>
     <div class="game-container" id="gameContainer">
-        <!-- Плавающие круги внутри контейнера -->
         <div class="floating-circles" id="floatingCircles"></div>
 
         <div class="login-screen" id="loginScreen">
@@ -937,7 +938,8 @@
                     
                     <div class="settings-option">
                         <div class="option-header">
-                            <span class="option-name">Высокое качество(Beta)</span>                           <label class="toggle-switch">
+                            <span class="option-name">Высокое качество</span>
+                            <label class="toggle-switch">
                                 <input type="checkbox" id="highQualityToggle">
                                 <span class="toggle-slider"></span>
                             </label>
@@ -1020,277 +1022,118 @@
 
             <div class="tab-content" id="shopTab">
                 <div class="shop-content">
-                    <!-- 1. AutoClicker V1 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🤖</span>
-                            <span class="shop-item-title">AutoClicker V1</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🤖</span><span class="shop-item-title">AutoClicker V1</span></div>
                         <div class="shop-item-desc">Автоматически кликает каждые 2 секунды</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">1 000</div>
-                            <div id="autoClickerShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">1 000</div><div id="autoClickerShopBtn"></div></div>
                     </div>
-
-                    <!-- 2. Update AutoClicker V1 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">⚡</span>
-                            <span class="shop-item-title">Update AutoClicker V1</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">⚡</span><span class="shop-item-title">Update AutoClicker V1</span></div>
                         <div class="shop-item-desc">Автокликер быстрее (2с → 1с)</div>
                         <div class="requirement-badge">Требуется: AutoClicker V1</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">2 500</div>
-                            <div id="autoSpeedShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">2 500</div><div id="autoSpeedShopBtn"></div></div>
                     </div>
-
-                    <!-- 3. Update AutoClicker V2 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">⚡⚡</span>
-                            <span class="shop-item-title">Update AutoClicker V2</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">⚡⚡</span><span class="shop-item-title">Update AutoClicker V2</span></div>
                         <div class="shop-item-desc">Автокликер быстрее (1с → 0.5с)</div>
                         <div class="requirement-badge">Требуется: Update V1</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">7 777</div>
-                            <div id="autoSpeedV2ShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">7 777</div><div id="autoSpeedV2ShopBtn"></div></div>
                     </div>
-
-                    <!-- 4. Update AutoClicker V3 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">⚡⚡⚡</span>
-                            <span class="shop-item-title">Update AutoClicker V3</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">⚡⚡⚡</span><span class="shop-item-title">Update AutoClicker V3</span></div>
                         <div class="shop-item-desc">Автокликер быстрее (0.5с → 0.2с)</div>
                         <div class="requirement-badge">Требуется: Update V2</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">25 000</div>
-                            <div id="autoSpeedV3ShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">25 000</div><div id="autoSpeedV3ShopBtn"></div></div>
                     </div>
-
-                    <!-- 5. Diamond Ring -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">💍</span>
-                            <span class="shop-item-title">Diamond Ring</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">💍</span><span class="shop-item-title">Diamond Ring</span></div>
                         <div class="shop-item-desc">+5 за клик</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">200</div>
-                            <div id="ringShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">200</div><div id="ringShopBtn"></div></div>
                     </div>
-
-                    <!-- 6. MrFeast Crown -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">👑</span>
-                            <span class="shop-item-title">MrFeast Crown</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">👑</span><span class="shop-item-title">MrFeast Crown</span></div>
                         <div class="shop-item-desc">+150 за клик</div>
                         <div class="requirement-badge">Требуется: Diamond Ring</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">25 777</div>
-                            <div id="crownShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">25 777</div><div id="crownShopBtn"></div></div>
                     </div>
-
-                    <!-- 7. Lucky X1 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🍀</span>
-                            <span class="shop-item-title">Lucky X1</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🍀</span><span class="shop-item-title">Lucky X1</span></div>
                         <div class="shop-item-desc">10% шанс удвоить прибыль за клик</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">35 777</div>
-                            <div id="lucky1ShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">35 777</div><div id="lucky1ShopBtn"></div></div>
                     </div>
-
-                    <!-- 8. Lucky X2 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🍀🍀</span>
-                            <span class="shop-item-title">Lucky X2</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🍀🍀</span><span class="shop-item-title">Lucky X2</span></div>
                         <div class="shop-item-desc">20% шанс удвоить прибыль за клик</div>
                         <div class="requirement-badge">Требуется: Lucky X1</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">65 000</div>
-                            <div id="lucky2ShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">65 000</div><div id="lucky2ShopBtn"></div></div>
                     </div>
-
-                    <!-- 9. Lucky X3 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🍀🍀🍀</span>
-                            <span class="shop-item-title">Lucky X3</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🍀🍀🍀</span><span class="shop-item-title">Lucky X3</span></div>
                         <div class="shop-item-desc">45% шанс удвоить прибыль за клик</div>
                         <div class="requirement-badge">Требуется: Lucky X2</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">125 000</div>
-                            <div id="lucky3ShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">125 000</div><div id="lucky3ShopBtn"></div></div>
                     </div>
-
-                    <!-- 10. Lucky X4 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🍀🍀🍀🍀</span>
-                            <span class="shop-item-title">Lucky X4</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🍀🍀🍀🍀</span><span class="shop-item-title">Lucky X4</span></div>
                         <div class="shop-item-desc">50% шанс удвоить прибыль за клик</div>
                         <div class="requirement-badge">Требуется: Lucky X3</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">256 000</div>
-                            <div id="lucky4ShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">256 000</div><div id="lucky4ShopBtn"></div></div>
                     </div>
-
-                    <!-- 11. Lucky X5 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🍀🍀🍀🍀🍀</span>
-                            <span class="shop-item-title">Lucky X5</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🍀🍀🍀🍀🍀</span><span class="shop-item-title">Lucky X5</span></div>
                         <div class="shop-item-desc">100% шанс удвоить прибыль за клик</div>
                         <div class="requirement-badge">Требуется: Lucky X4</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">1 000 000</div>
-                            <div id="lucky5ShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">1 000 000</div><div id="lucky5ShopBtn"></div></div>
                     </div>
-
-                    <!-- 12. MrFeast PC V1 -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🖥️</span>
-                            <span class="shop-item-title">MrFeast PC V1</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🖥️</span><span class="shop-item-title">MrFeast PC V1</span></div>
                         <div class="shop-item-desc">Открывает Browser</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">57 500</div>
-                            <div id="pcShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">57 500</div><div id="pcShopBtn"></div></div>
                     </div>
-
-                    <!-- MrFeast SmartPhone -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">📱</span>
-                            <span class="shop-item-title">MrFeast SmartPhone (Worbeli GameShtorm)</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">📱</span><span class="shop-item-title">MrFeast SmartPhone (Worbeli GameShtorm)</span></div>
                         <div class="shop-item-desc">Вы создали свой игровой телефон и увеличиваете доход за клик на 750</div>
                         <div class="requirement-badge">Требуется: MrFeast Factory</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">1 256 000</div>
-                            <div id="smartphoneShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">1 256 000</div><div id="smartphoneShopBtn"></div></div>
                     </div>
-
-                    <!-- 13. MrFeast Browser -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🌐</span>
-                            <span class="shop-item-title">MrFeast Browser</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🌐</span><span class="shop-item-title">MrFeast Browser</span></div>
                         <div class="shop-item-desc">X2 каждые 5 секунд</div>
                         <div class="requirement-badge">Требуется: PC V1</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">275 000</div>
-                            <div id="browserShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">275 000</div><div id="browserShopBtn"></div></div>
                     </div>
-
-                    <!-- 14. MrFeast Casino -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🎰</span>
-                            <span class="shop-item-title">MrFeast Casino</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🎰</span><span class="shop-item-title">MrFeast Casino</span></div>
                         <div class="shop-item-desc">Каждые 60 секунд дает 15 000 монет</div>
                         <div class="requirement-badge">Требуется: PC V1</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">1 250 000</div>
-                            <div id="casinoShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">1 250 000</div><div id="casinoShopBtn"></div></div>
                     </div>
-
-                    <!-- 15. MrFeastLand -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🌃</span>
-                            <span class="shop-item-title">MrFeastLand</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🌃</span><span class="shop-item-title">MrFeastLand</span></div>
                         <div class="shop-item-desc">+1000 за клик</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">760 000</div>
-                            <div id="landShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">760 000</div><div id="landShopBtn"></div></div>
                     </div>
-
-                    <!-- MrFeast Factory -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🏭</span>
-                            <span class="shop-item-title">MrFeast Factory</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🏭</span><span class="shop-item-title">MrFeast Factory</span></div>
                         <div class="shop-item-desc">Дает возможность создавать телефоны. +1250 за клик</div>
                         <div class="requirement-badge">Требуется: PC V1, MrFeastLand</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">2 750 000</div>
-                            <div id="factoryShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">2 750 000</div><div id="factoryShopBtn"></div></div>
                     </div>
-
-                    <!-- MrFeast Magic Ball -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🔮</span>
-                            <span class="shop-item-title">MrFeast Magic Ball</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🔮</span><span class="shop-item-title">MrFeast Magic Ball</span></div>
                         <div class="shop-item-desc">+250 за клик</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">1 570 000</div>
-                            <div id="magicBallShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">1 570 000</div><div id="magicBallShopBtn"></div></div>
                     </div>
-
-                    <!-- MrFeast Big Home -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">🏡</span>
-                            <span class="shop-item-title">MrFeast Big Home</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">🏡</span><span class="shop-item-title">MrFeast Big Home</span></div>
                         <div class="shop-item-desc">+570 за клик</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">9 777 000</div>
-                            <div id="bigHomeShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">9 777 000</div><div id="bigHomeShopBtn"></div></div>
                     </div>
-
-                    <!-- MrFeast's GirlFriend Vika -->
                     <div class="shop-item">
-                        <div class="shop-item-header">
-                            <span class="shop-item-icon">💚</span>
-                            <span class="shop-item-title">MrFeast's GirlFriend Vika</span>
-                        </div>
+                        <div class="shop-item-header"><span class="shop-item-icon">💚</span><span class="shop-item-title">MrFeast's GirlFriend Vika</span></div>
                         <div class="shop-item-desc">+1500 за клик</div>
                         <div class="requirement-badge">Требуется: Big Home</div>
-                        <div class="shop-item-footer">
-                            <div class="shop-item-price">15 000 000</div>
-                            <div id="girlfriendShopBtn"></div>
-                        </div>
+                        <div class="shop-item-footer"><div class="shop-item-price">15 000 000</div><div id="girlfriendShopBtn"></div></div>
                     </div>
                 </div>
             </div>
@@ -1376,7 +1219,7 @@
                 ⚡ Апгрейд
             </button>
 
-            <div class="version">Version:1.1.0</div>
+            <div class="version">Version:1.1.0(Fix)</div>
         </div>
     </div>
 
@@ -1428,7 +1271,6 @@
         let hasSmartphone = false;
         let luckyLevel = 0;
         
-        // Настройки
         let highQuality = false;
         let hideIndicators = false;
         let circlesInterval = null;
@@ -1504,11 +1346,8 @@
         const award7Btn = document.getElementById('award7Btn');
         const award8Btn = document.getElementById('award8Btn');
 
-        // Функция для создания плавающих кругов
         function createFloatingCircles() {
-            if (circlesInterval) {
-                clearInterval(circlesInterval);
-            }
+            if (circlesInterval) clearInterval(circlesInterval);
             floatingCircles.innerHTML = '';
             if (highQuality) {
                 for (let i = 0; i < 25; i++) {
@@ -1521,7 +1360,7 @@
                     circle.style.top = Math.random() * 100 + '%';
                     circle.style.animationDuration = Math.random() * 20 + 15 + 's';
                     circle.style.animationDelay = Math.random() * 8 + 's';
-                    circle.style.opacity = Math.random() * 0.5 + 0.2;
+                    circle.style.opacity = Math.random() * 0.4 + 0.2;
                     floatingCircles.appendChild(circle);
                 }
                 circlesInterval = setInterval(() => {
@@ -1532,19 +1371,18 @@
                             circle.style.top = Math.random() * 100 + '%';
                         });
                     }
-                }, 12000);
+                }, 10000);
             } else {
                 floatingCircles.innerHTML = '';
             }
         }
 
-        // Функция для создания волны при нажатии
-        function createRipple(event) {
+        function createRippleOptimized(event) {
             if (!highQuality) return;
             
             const btn = event.currentTarget;
             const rect = btn.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
+            const size = Math.max(rect.width, rect.height) * 1.2;
             
             const ripple = document.createElement('div');
             ripple.className = 'ripple';
@@ -1554,12 +1392,12 @@
             document.body.appendChild(ripple);
             
             setTimeout(() => {
-                ripple.remove();
-            }, 600);
+                if (ripple && ripple.remove) ripple.remove();
+            }, 450);
         }
 
         function handleClickWithRipple(event) {
-            createRipple(event);
+            createRippleOptimized(event);
             handleClick();
         }
 
@@ -1675,9 +1513,6 @@
                 gameContainer.style.border = '2px solid rgba(255, 215, 0, 0.5)';
                 const clickBtn = document.querySelector('.click-btn');
                 if (clickBtn) clickBtn.style.boxShadow = '0 20px 40px rgba(0,0,0,0.6), 0 0 50px rgba(255,215,0,0.5)';
-                document.querySelectorAll('.tab').forEach(t => {
-                    t.style.transition = 'all 0.3s ease';
-                });
                 createFloatingCircles();
             } else {
                 gameContainer.style.boxShadow = '0 20px 40px rgba(0,0,0,0.8)';
@@ -1685,10 +1520,7 @@
                 const clickBtn = document.querySelector('.click-btn');
                 if (clickBtn) clickBtn.style.boxShadow = '0 15px 30px rgba(0,0,0,0.5), 0 0 30px rgba(255,215,0,0.3)';
                 floatingCircles.innerHTML = '';
-                if (circlesInterval) {
-                    clearInterval(circlesInterval);
-                    circlesInterval = null;
-                }
+                if (circlesInterval) clearInterval(circlesInterval);
             }
         }
 
@@ -1774,14 +1606,14 @@
                 promoMessage.className = 'promo-message error';
                 return;
             }
-            if (code === 'MrFeast110UPD') {
+            if (code === 'MrFeastFixUPD') {
                 promoUsed = true;
-                coinsPerClick += 500;
-                promoMessage.textContent = 'Промокод активирован! +500 за клик';
+                coinsPerClick += 570;
+                promoMessage.textContent = 'Промокод активирован! +570 за клик';
                 promoMessage.className = 'promo-message success';
                 updateDisplay();
                 saveGame();
-                showNotif('🎁 Промокод активирован! +500 за клик');
+                showNotif('🎁 Промокод активирован! +570 за клик');
             } else {
                 promoMessage.textContent = 'Неверный промокод';
                 promoMessage.className = 'promo-message error';
@@ -1831,46 +1663,35 @@
             
             if (luckyLevel >= 1) lucky1ShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else lucky1ShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyLucky1()" ${coins < 35777 ? 'disabled' : ''}>Купить</button>`;
-            
             if (luckyLevel < 1) lucky2ShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (luckyLevel >= 2) lucky2ShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else lucky2ShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyLucky2()" ${coins < 65000 ? 'disabled' : ''}>Купить</button>`;
-            
             if (luckyLevel < 2) lucky3ShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (luckyLevel >= 3) lucky3ShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else lucky3ShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyLucky3()" ${coins < 125000 ? 'disabled' : ''}>Купить</button>`;
-            
             if (luckyLevel < 3) lucky4ShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (luckyLevel >= 4) lucky4ShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else lucky4ShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyLucky4()" ${coins < 256000 ? 'disabled' : ''}>Купить</button>`;
-            
             if (luckyLevel < 4) lucky5ShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (luckyLevel >= 5) lucky5ShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else lucky5ShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyLucky5()" ${coins < 1000000 ? 'disabled' : ''}>Купить</button>`;
             
             pcShopBtn.innerHTML = hasPC ? '<span class="owned-badge">✅</span>' : `<button class="shop-item-btn" onclick="buyPC()" ${coins < 57500 ? 'disabled' : ''}>Купить</button>`;
-            
             if (!hasFactory) smartphoneShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (hasSmartphone) smartphoneShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else smartphoneShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buySmartphone()" ${coins < 1256000 ? 'disabled' : ''}>Купить</button>`;
-            
             if (!hasPC) browserShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (hasBrowser) browserShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else browserShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyBrowser()" ${coins < 275000 ? 'disabled' : ''}>Купить</button>`;
-            
             if (!hasPC) casinoShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (hasCasino) casinoShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else casinoShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyCasino()" ${coins < 1250000 ? 'disabled' : ''}>Купить</button>`;
-            
             landShopBtn.innerHTML = hasLand ? '<span class="owned-badge">✅</span>' : `<button class="shop-item-btn" onclick="buyLand()" ${coins < 760000 ? 'disabled' : ''}>Купить</button>`;
-            
             if (!hasPC || !hasLand) factoryShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (hasFactory) factoryShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else factoryShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyFactory()" ${coins < 2750000 ? 'disabled' : ''}>Купить</button>`;
-            
             magicBallShopBtn.innerHTML = hasMagicBall ? '<span class="owned-badge">✅</span>' : `<button class="shop-item-btn" onclick="buyMagicBall()" ${coins < 1570000 ? 'disabled' : ''}>Купить</button>`;
             bigHomeShopBtn.innerHTML = hasBigHome ? '<span class="owned-badge">✅</span>' : `<button class="shop-item-btn" onclick="buyBigHome()" ${coins < 9777000 ? 'disabled' : ''}>Купить</button>`;
-            
             if (!hasBigHome) girlfriendShopBtn.innerHTML = '<span class="owned-badge" style="opacity:0.3;">❌</span>';
             else if (hasGirlfriend) girlfriendShopBtn.innerHTML = '<span class="owned-badge">✅</span>';
             else girlfriendShopBtn.innerHTML = `<button class="shop-item-btn" onclick="buyGirlfriend()" ${coins < 15000000 ? 'disabled' : ''}>Купить</button>`;
@@ -2061,7 +1882,7 @@
                 applyHighQuality();
                 showNotif('✅ Загружено');
             } else {
-                coins = 0;
+                coins = 5000;
                 showNotif('🆕 Новый игрок');
             }
             restartAuto(); restartBrowser(); restartCasino();
@@ -2096,4 +1917,4 @@
         usernameInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') startGame(); });
     </script>
 </body>
-    </html>
+</html>
