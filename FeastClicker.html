@@ -43,7 +43,6 @@
             overflow: hidden;
         }
 
-        /* Плавающие круги - ПО ВСЕМУ ФОНУ */
         .floating-circles {
             position: absolute;
             top: 0;
@@ -889,8 +888,8 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: #0a0a0f;
+            background: #0a0a0a;
+            color: #ffd700;
             padding: 12px 25px;
             border-radius: 50px;
             font-weight: bold;
@@ -899,6 +898,8 @@
             white-space: nowrap;
             max-width: 90%;
             text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
         }
 
         @keyframes notification {
@@ -1022,118 +1023,277 @@
 
             <div class="tab-content" id="shopTab">
                 <div class="shop-content">
+                    <!-- 1. AutoClicker V1 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🤖</span><span class="shop-item-title">AutoClicker V1</span></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🤖</span>
+                            <span class="shop-item-title">AutoClicker V1</span>
+                        </div>
                         <div class="shop-item-desc">Автоматически кликает каждые 2 секунды</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">1 000</div><div id="autoClickerShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">1 000</div>
+                            <div id="autoClickerShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 2. Update AutoClicker V1 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">⚡</span><span class="shop-item-title">Update AutoClicker V1</span></div>
-                        <div class="shop-item-desc">Автокликер быстрее (2с → 1с)</div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">⚡</span>
+                            <span class="shop-item-title">Update AutoClicker V1</span>
+                        </div>
+                        <div class="shop-item-desc">Автокликер будет быстрее кликать на 1 секунду меньше (станет 1 секунда)</div>
                         <div class="requirement-badge">Требуется: AutoClicker V1</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">2 500</div><div id="autoSpeedShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">2 500</div>
+                            <div id="autoSpeedShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 3. Update AutoClicker V2 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">⚡⚡</span><span class="shop-item-title">Update AutoClicker V2</span></div>
-                        <div class="shop-item-desc">Автокликер быстрее (1с → 0.5с)</div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">⚡⚡</span>
+                            <span class="shop-item-title">Update AutoClicker V2</span>
+                        </div>
+                        <div class="shop-item-desc">Автокликер будет еще быстрее кликать на 0.5 секунды меньше (станет 0.5 секунд)</div>
                         <div class="requirement-badge">Требуется: Update V1</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">7 777</div><div id="autoSpeedV2ShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">7 777</div>
+                            <div id="autoSpeedV2ShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 4. Update AutoClicker V3 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">⚡⚡⚡</span><span class="shop-item-title">Update AutoClicker V3</span></div>
-                        <div class="shop-item-desc">Автокликер быстрее (0.5с → 0.2с)</div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">⚡⚡⚡</span>
+                            <span class="shop-item-title">Update AutoClicker V3</span>
+                        </div>
+                        <div class="shop-item-desc">Автокликер будет с бешенной скоростью кликать на 0.3 секунды меньше (станет 0.2 секунды)</div>
                         <div class="requirement-badge">Требуется: Update V2</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">25 000</div><div id="autoSpeedV3ShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">25 000</div>
+                            <div id="autoSpeedV3ShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 5. Diamond Ring -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">💍</span><span class="shop-item-title">Diamond Ring</span></div>
-                        <div class="shop-item-desc">+5 за клик</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">200</div><div id="ringShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">💍</span>
+                            <span class="shop-item-title">Diamond Ring</span>
+                        </div>
+                        <div class="shop-item-desc">Увеличивает доход за клик на 5</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">200</div>
+                            <div id="ringShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 6. MrFeast Crown -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">👑</span><span class="shop-item-title">MrFeast Crown</span></div>
-                        <div class="shop-item-desc">+150 за клик</div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">👑</span>
+                            <span class="shop-item-title">MrFeast Crown</span>
+                        </div>
+                        <div class="shop-item-desc">Увеличивает прилично доход за клик на 150</div>
                         <div class="requirement-badge">Требуется: Diamond Ring</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">25 777</div><div id="crownShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">25 777</div>
+                            <div id="crownShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 7. Lucky X1 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🍀</span><span class="shop-item-title">Lucky X1</span></div>
-                        <div class="shop-item-desc">10% шанс удвоить прибыль за клик</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">35 777</div><div id="lucky1ShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🍀</span>
+                            <span class="shop-item-title">Lucky X1</span>
+                        </div>
+                        <div class="shop-item-desc">С шансом 10% за нажатие вам дадут удвоенную прибыль</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">35 777</div>
+                            <div id="lucky1ShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 8. Lucky X2 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🍀🍀</span><span class="shop-item-title">Lucky X2</span></div>
-                        <div class="shop-item-desc">20% шанс удвоить прибыль за клик</div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🍀🍀</span>
+                            <span class="shop-item-title">Lucky X2</span>
+                        </div>
+                        <div class="shop-item-desc">С шансом 20% за нажатие вам дадут удвоенную прибыль</div>
                         <div class="requirement-badge">Требуется: Lucky X1</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">65 000</div><div id="lucky2ShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">65 000</div>
+                            <div id="lucky2ShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 9. Lucky X3 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🍀🍀🍀</span><span class="shop-item-title">Lucky X3</span></div>
-                        <div class="shop-item-desc">45% шанс удвоить прибыль за клик</div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🍀🍀🍀</span>
+                            <span class="shop-item-title">Lucky X3</span>
+                        </div>
+                        <div class="shop-item-desc">С шансом 45% за нажатие вам дадут удвоенную прибыль</div>
                         <div class="requirement-badge">Требуется: Lucky X2</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">125 000</div><div id="lucky3ShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">125 000</div>
+                            <div id="lucky3ShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 10. Lucky X4 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🍀🍀🍀🍀</span><span class="shop-item-title">Lucky X4</span></div>
-                        <div class="shop-item-desc">50% шанс удвоить прибыль за клик</div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🍀🍀🍀🍀</span>
+                            <span class="shop-item-title">Lucky X4</span>
+                        </div>
+                        <div class="shop-item-desc">С шансом 50% за нажатие вам дадут удвоенную прибыль</div>
                         <div class="requirement-badge">Требуется: Lucky X3</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">256 000</div><div id="lucky4ShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">256 000</div>
+                            <div id="lucky4ShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 11. Lucky X5 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🍀🍀🍀🍀🍀</span><span class="shop-item-title">Lucky X5</span></div>
-                        <div class="shop-item-desc">100% шанс удвоить прибыль за клик</div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🍀🍀🍀🍀🍀</span>
+                            <span class="shop-item-title">Lucky X5</span>
+                        </div>
+                        <div class="shop-item-desc">С шансом 100% за нажатие вам дадут удвоенную прибыль</div>
                         <div class="requirement-badge">Требуется: Lucky X4</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">1 000 000</div><div id="lucky5ShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">1 000 000</div>
+                            <div id="lucky5ShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 12. MrFeast PC V1 -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🖥️</span><span class="shop-item-title">MrFeast PC V1</span></div>
-                        <div class="shop-item-desc">Открывает Browser</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">57 500</div><div id="pcShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🖥️</span>
+                            <span class="shop-item-title">MrFeast PC V1</span>
+                        </div>
+                        <div class="shop-item-desc">Дает возможность создать браузер</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">57 500</div>
+                            <div id="pcShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 13. MrFeast SmartPhone -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">📱</span><span class="shop-item-title">MrFeast SmartPhone (Worbeli GameShtorm)</span></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">📱</span>
+                            <span class="shop-item-title">MrFeast SmartPhone (Worbeli GameShtorm)</span>
+                        </div>
                         <div class="shop-item-desc">Вы создали свой игровой телефон и увеличиваете доход за клик на 750</div>
                         <div class="requirement-badge">Требуется: MrFeast Factory</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">1 256 000</div><div id="smartphoneShopBtn"></div></div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">1 256 000</div>
+                            <div id="smartphoneShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 14. MrFeast Browser -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🌐</span><span class="shop-item-title">MrFeast Browser</span></div>
-                        <div class="shop-item-desc">X2 каждые 5 секунд</div>
-                        <div class="requirement-badge">Требуется: PC V1</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">275 000</div><div id="browserShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🌐</span>
+                            <span class="shop-item-title">MrFeast Browser</span>
+                        </div>
+                        <div class="shop-item-desc">Браузер приносит каждые 5 секунд доход в размере X2 от дохода за 1 клик</div>
+                        <div class="requirement-badge">Требуется: MrFeast PC V1</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">275 000</div>
+                            <div id="browserShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 15. MrFeast Casino -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🎰</span><span class="shop-item-title">MrFeast Casino</span></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🎰</span>
+                            <span class="shop-item-title">MrFeast Casino</span>
+                        </div>
                         <div class="shop-item-desc">Каждые 60 секунд дает 15 000 монет</div>
-                        <div class="requirement-badge">Требуется: PC V1</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">1 250 000</div><div id="casinoShopBtn"></div></div>
+                        <div class="requirement-badge">Требуется: MrFeast PC V1</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">1 250 000</div>
+                            <div id="casinoShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 16. MrFeastLand -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🌃</span><span class="shop-item-title">MrFeastLand</span></div>
-                        <div class="shop-item-desc">+1000 за клик</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">760 000</div><div id="landShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🌃</span>
+                            <span class="shop-item-title">MrFeastLand</span>
+                        </div>
+                        <div class="shop-item-desc">Значительно повышает репутацию и доход за клик на 1000</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">760 000</div>
+                            <div id="landShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 17. MrFeast Factory -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🏭</span><span class="shop-item-title">MrFeast Factory</span></div>
-                        <div class="shop-item-desc">Дает возможность создавать телефоны. +1250 за клик</div>
-                        <div class="requirement-badge">Требуется: PC V1, MrFeastLand</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">2 750 000</div><div id="factoryShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🏭</span>
+                            <span class="shop-item-title">MrFeast Factory</span>
+                        </div>
+                        <div class="shop-item-desc">Дает возможность создавать телефоны. Увеличивает доход за клик на 1250</div>
+                        <div class="requirement-badge">Требуется: MrFeast PC V1, MrFeastLand</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">2 750 000</div>
+                            <div id="factoryShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 18. MrFeast Magic Ball -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🔮</span><span class="shop-item-title">MrFeast Magic Ball</span></div>
-                        <div class="shop-item-desc">+250 за клик</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">1 570 000</div><div id="magicBallShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🔮</span>
+                            <span class="shop-item-title">MrFeast Magic Ball</span>
+                        </div>
+                        <div class="shop-item-desc">Повышает доход за нажатие на 250!</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">1 570 000</div>
+                            <div id="magicBallShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 19. MrFeast Big Home -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">🏡</span><span class="shop-item-title">MrFeast Big Home</span></div>
-                        <div class="shop-item-desc">+570 за клик</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">9 777 000</div><div id="bigHomeShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">🏡</span>
+                            <span class="shop-item-title">MrFeast Big Home</span>
+                        </div>
+                        <div class="shop-item-desc">Дает завести девушку и бонус за клик: +570</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">9 777 000</div>
+                            <div id="bigHomeShopBtn"></div>
+                        </div>
                     </div>
+
+                    <!-- 20. MrFeast's GirlFriend Vika -->
                     <div class="shop-item">
-                        <div class="shop-item-header"><span class="shop-item-icon">💚</span><span class="shop-item-title">MrFeast's GirlFriend Vika</span></div>
-                        <div class="shop-item-desc">+1500 за клик</div>
-                        <div class="requirement-badge">Требуется: Big Home</div>
-                        <div class="shop-item-footer"><div class="shop-item-price">15 000 000</div><div id="girlfriendShopBtn"></div></div>
+                        <div class="shop-item-header">
+                            <span class="shop-item-icon">💚</span>
+                            <span class="shop-item-title">MrFeast's GirlFriend Vika</span>
+                        </div>
+                        <div class="shop-item-desc">Любимая девушка MrFeast. Вы счастливы и ваш доход увеличился на +1500</div>
+                        <div class="requirement-badge">Требуется: MrFeast Big Home</div>
+                        <div class="shop-item-footer">
+                            <div class="shop-item-price">15 000 000</div>
+                            <div id="girlfriendShopBtn"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1882,7 +2042,7 @@
                 applyHighQuality();
                 showNotif('✅ Загружено');
             } else {
-                coins = 5000;
+                coins = 0;
                 showNotif('🆕 Новый игрок');
             }
             restartAuto(); restartBrowser(); restartCasino();
